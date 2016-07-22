@@ -1,47 +1,17 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+node_modules/*
 
-# Folder config file
-Desktop.ini
+node_modules/browser-sync/*
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+node_modules/gulp/*
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+node_modules/gulp-sass/*
 
-# Windows shortcuts
-*.lnk
+node_modules/gulp/*
 
-# =========================
-# Operating System Files
-# =========================
+node_modules/gulp-uglify/*
 
-# OSX
-# =========================
+cookie.html
 
-.DS_Store
-.AppleDouble
-.LSOverride
+hehe.html
 
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+host.js
