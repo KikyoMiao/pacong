@@ -17,7 +17,7 @@ var transporter = nodemailer.createTransport(smtpTransport(email));
 var sendmail = function(_html){
   var option = {
     from : 'pdm_email@163.com',
-    to : '395820906@qq.com, 282561862@qq.com',
+    to : '395820906@qq.com,380724414@qq.com',
     subject : '【每天都要赚小鱼干】',
     attachments : [{
       filename : 'miao.jpg',
@@ -38,37 +38,49 @@ var sendmail = function(_html){
 var main = {
   init : function(){
     superagent
-    .get(config.link.ind_url)
-    .query({"_" : config.link.id, "page" : 1, "trace_id" : config.link.trace_id, "x" : config.link.x})
-    .set(config.link.option)
+    .get('xueqiu.com')
     .end(function(err, sres){
-      var obj = JSON.parse(sres.text);
-      var data = obj.industryList.slice(0, 6);
-      data.map(function(item,i){
-        item.created_at = item.time
-      })
-      getData.findData('mycollection', data);
-      config.apiInfo.ins = data;
+      var cookieArr = sres.headers["set-cookie"];
+      if(!cookieArr) console.log("no cookie");
+      newcookie = config.getToken(cookieArr);
+      config.link.option.Cookie += newcookie;
       superagent
-      .get(config.link.new_url)
-      .query({"_" : config.link.id, "trace_id" : config.link.trace_id, "x" : config.link.x})
+      .get(config.link.ind_url)
+      .query({"_" : config.link.id, "page" : 1, "trace_id" : config.link.trace_id, "x" : config.link.x})
       .set(config.link.option)
-      .end(function(nerr, nres){
-        var obj = JSON.parse(nres.text);
-        var newsList = [];
-        obj.map(function(item,i){
-          if (item.mark == 1) {
-            newsList.push(item);
-          };
+      .end(function(err, sres){
+        var obj = JSON.parse(sres.text);
+        var data = obj.industryList.slice(0, 6);
+        data.map(function(item,i){
+          item.created_at = item.time
         })
-        getData.findData('newscollection', newsList);
-        config.apiInfo.news = newsList;
-        monapi.render(config.apiInfo, function(err, resluts){
-          if(err){
-            console.log('email: ' + err);
+        getData.findData('mycollection', data);
+        config.apiInfo.ins = data;
+        superagent
+        .get(config.link.new_url)
+        .query({"_" : config.link.id, "trace_id" : config.link.trace_id, "x" : config.link.x})
+        .set(config.link.option)
+        .end(function(nerr, nres){
+          var obj = JSON.parse(nres.text);
+          var newsList = [];
+          obj.map(function(item,i){
+            if (item.mark == 1) {
+              newsList.push(item);
+            };
+          })
+          if (!newsList.length) {
+            newsList.push({ id: 404, text: '木有重要消息嗷~~~', state: 1, mark: 0, target: 'http://xueqiu.com/', created_at: 404 })
           }
-          sendmail(resluts.html);
-        });
+          getData.findData('newscollection', newsList);
+          config.apiInfo.news = newsList;
+          monapi.render(config.apiInfo, function(err, resluts){
+            if(err){
+              console.log('email: ' + err);
+            }
+            sendmail(resluts.html);
+            //console.log(resluts.html);
+          });
+        })
       })
     })
   }

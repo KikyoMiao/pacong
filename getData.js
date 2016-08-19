@@ -24,10 +24,10 @@ var dealData = {
                   }
                 });
               }else{
-                //console.log(docs);
+                //
               }
               db.close();
-            });
+            });   
           }
         });
       }
