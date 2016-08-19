@@ -1,6 +1,8 @@
-# 努力赚小鱼干の系列 - 雪球数据分析
+# 努力赚小鱼干の系列 - 雪球数据反爬虫分析
  
 > 仅供本人炒股玩耍~ 无参考价值 =￣ω￣=
+
+![此处输入图片的描述][1]
 
 ## Fiddler Install 
 
@@ -18,6 +20,18 @@ node-schedule => 用于设置定时任务。
 mongodb 为方便后期添加分析数据模块, 添加了mongodb数据库。
 ```
 
+## Anti-Anti-Spider
+
+鉴于雪球有反爬虫策略，反反爬虫策略是依靠定向爬取源的反爬虫策略而定。
+通过fiddler对xueqiu.com的数据分析, 这里采用的是动态修改cookie。
+一些常用的方法：
+
+ - IP代理 
+ - Cookies
+ - 限速访问 
+
+
+
 ## Functionality
 
  - 获取cookie, 由于app地址拒绝访问, 所以cookie的设置来自于xueqiu.com，其他数据则来源于api.xueqiu.com。
@@ -30,3 +44,6 @@ mongodb 为方便后期添加分析数据模块, 添加了mongodb数据库。
 ## Usage
 
 最后运行：node index.js
+
+
+  [1]: http://g.hiphotos.baidu.com/image/pic/item/8d5494eef01f3a298b2f087f9125bc315d607c98.jpg
