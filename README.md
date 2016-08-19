@@ -46,4 +46,4 @@ mongodb 为方便后期添加分析数据模块, 添加了mongodb数据库。
 最后运行：node index.js
 
 
-  [1]: http://g.hiphotos.baidu.com/image/pic/item/8d5494eef01f3a298b2f087f9125bc315d607c98.jpg
+  [1]: https://github.com/KikyoMiao/pacong/blob/master/miao.gif
